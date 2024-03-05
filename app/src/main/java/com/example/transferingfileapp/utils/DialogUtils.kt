@@ -14,4 +14,16 @@ object DialogUtils {
         val alertDialog = builder.create()
         alertDialog.show()
     }
+
+    fun invalidPINDialog(context: Context) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("PIN Anda tidak valid!!")
+            .setMessage("PIN anda tidak terdaftar di dalam sistem.")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
 }
