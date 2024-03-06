@@ -12,6 +12,7 @@ import retrofit2.Response
 import android.content.Intent
 import android.content.Context
 import android.util.Log
+import com.example.transferingfileapp.HomeActivity
 import com.example.transferingfileapp.utils.DialogUtils
 
 
@@ -37,7 +38,12 @@ class API(private val context: Context) {
                 if (response.isSuccessful) {
                     val yourResponse = response.body()
                     if (yourResponse?.message == "Success to login") {
-                        val intent = Intent(context, MainActivity::class.java)
+                        val intent = Intent(context, HomeActivity::class.java)
+                        // to save token or pin in local storage
+                        val sharedPreferences = context.getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("token", pin)
+                        editor.apply()
                         context.startActivity(intent)
                     } else {
                         DialogUtils.invalidPINDialog(context)
@@ -51,8 +57,6 @@ class API(private val context: Context) {
                 DialogUtils.invalidPINDialog(context)
             }
         })
-
-
     }
 }
 
