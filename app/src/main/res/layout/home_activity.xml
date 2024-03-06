@@ -25,6 +25,16 @@
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
 
+    <!-- File yang dipilih -->
+    <TextView
+        android:id="@+id/namaFileTerpilih"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"/>
+
     <!-- Tombol untuk Memilih File -->
     <Button
         android:id="@+id/btnChooseFile"

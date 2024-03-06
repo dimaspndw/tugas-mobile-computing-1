@@ -12,11 +12,18 @@ import retrofit2.Response
 import android.content.Intent
 import android.content.Context
 import android.util.Log
+import androidx.documentfile.provider.DocumentFile
 import com.example.transferingfileapp.HomeActivity
 import com.example.transferingfileapp.utils.DialogUtils
+import okhttp3.MediaType
+import okhttp3.MultipartBody
 
 
 import retrofit2.create
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import java.io.InputStream
 
 class API(private val context: Context) {
     private val retrofit = Retrofit.Builder()
@@ -25,7 +32,9 @@ class API(private val context: Context) {
         .build()
 
     private val apiService = retrofit.create(ApiService::class.java)
+    private val apiServicePost = retrofit.create(ApiServicePost::class.java)
 
+    // function to check user API
     fun checkUserAPI(pin: String) {
         val pinRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), pin)
 
@@ -58,6 +67,40 @@ class API(private val context: Context) {
             }
         })
     }
+
+    // function to post data
+    fun postData(uri: android.net.Uri, from: Int, to: Int, name: String) {
+        val file = DocumentFile.fromSingleUri(context, uri)
+        val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+
+        // Baca data dari InputStream dan berikan nilai default jika null
+        val requestData = inputStream?.readBytes() ?: ByteArray(0)
+
+        val requestFile = RequestBody.create(context.contentResolver.getType(uri)?.toMediaTypeOrNull(), requestData)
+        val filePart = MultipartBody.Part.createFormData("file", name, requestFile)
+        val nameRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), name)
+        val toRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), to.toString())
+        val fromRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), from.toString())
+
+        val call = apiServicePost.postData(filePart, nameRequestBody, toRequestBody, fromRequestBody)
+
+        call.enqueue(object : Callback<ResponseClass> {
+            override fun onResponse(call: Call<ResponseClass>, response: Response<ResponseClass>) {
+                // Handle response
+                if (response.isSuccessful) {
+                    val message = response.body()?.message
+                    DialogUtils.successPostData(context)
+                } else {
+                    DialogUtils.invalidPINDialog(context)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseClass>, t: Throwable) {
+                DialogUtils.invalidPINDialog(context)
+            }
+        })
+    }
+    // function to get data
 }
 
 interface ApiService {
@@ -65,5 +108,16 @@ interface ApiService {
     @retrofit2.http.POST("api/user/check")
     fun checkUser(
         @retrofit2.http.Part("pin") pin: RequestBody,
+    ): Call<ResponseClass>
+}
+
+interface ApiServicePost {
+    @Multipart
+    @POST("api/file")
+    fun postData(
+        @Part file: MultipartBody.Part,
+        @Part("name") name: RequestBody,
+        @Part("to") to: RequestBody,
+        @Part("from") from: RequestBody
     ): Call<ResponseClass>
 }
