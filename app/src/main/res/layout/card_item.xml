@@ -1,0 +1,20 @@
+<!-- card_item.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Tambahkan elemen-elemen UI yang diperlukan untuk setiap kartu -->
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Judul"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Tambahkan elemen-elemen UI lainnya sesuai kebutuhan -->
+
+</LinearLayout>

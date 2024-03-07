@@ -14,15 +14,18 @@ import android.content.Context
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import com.example.transferingfileapp.HomeActivity
+import com.example.transferingfileapp.model.DataResponseClass
 import com.example.transferingfileapp.utils.DialogUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 
 
 import retrofit2.create
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 import java.io.InputStream
 
 class API(private val context: Context) {
@@ -33,6 +36,7 @@ class API(private val context: Context) {
 
     private val apiService = retrofit.create(ApiService::class.java)
     private val apiServicePost = retrofit.create(ApiServicePost::class.java)
+    private val apiServiceGetData = retrofit.create(ApiServiceGetData::class.java)
 
     // function to check user API
     fun checkUserAPI(pin: String) {
@@ -100,7 +104,29 @@ class API(private val context: Context) {
             }
         })
     }
+
     // function to get data
+    fun getData(code: Int, callback: (List<DataResponseClass>?) -> Unit) {
+        val call = apiServiceGetData.getData(code)
+
+        call.enqueue(object : Callback<DataResponseClass> {
+            override fun onResponse(call: Call<DataResponseClass>, response: Response<DataResponseClass>) {
+                // Handle response
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    // Panggil callback dengan data yang diperoleh
+                    callback(data)
+                } else {
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<DataResponseClass>, t: Throwable) {
+                callback(null)
+            }
+        })
+    }
+
 }
 
 interface ApiService {
@@ -120,4 +146,11 @@ interface ApiServicePost {
         @Part("to") to: RequestBody,
         @Part("from") from: RequestBody
     ): Call<ResponseClass>
+}
+
+interface ApiServiceGetData {
+    @GET("api/file/{id}")
+    fun getData(
+        @Path("id") id: Int
+    ): Call<DataResponseClass>
 }

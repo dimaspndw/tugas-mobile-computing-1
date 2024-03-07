@@ -43,6 +43,7 @@ class HomeActivity : ComponentActivity() {
         val btnChooseFile = findViewById<Button>(R.id.btnChooseFile)
         val nameFile = findViewById<EditText>(R.id.editTextFileName)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
+        val btnYourFile = findViewById<Button>(R.id.yourFile)
 
         btnChooseFile.setOnClickListener{
             chooseFileLauncher.launch("*/*")
@@ -51,6 +52,11 @@ class HomeActivity : ComponentActivity() {
         btnSubmit.setOnClickListener{
             val nameFile = nameFile.text.toString()
             api.postData(selectedUri, 123, 123, nameFile)
+        }
+
+        btnYourFile.setOnClickListener {
+            val intent = Intent(this, FileActivity::class.java)
+            startActivity(intent)
         }
     }
 

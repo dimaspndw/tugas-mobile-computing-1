@@ -54,4 +54,13 @@
         android:onClick="submitForm"
         android:layout_gravity="center_horizontal"/>
 
+    <!--  File anda  -->
+    <Button
+        android:id="@+id/yourFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="File anda"
+        android:onClick="goToYourFile"
+        android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>
