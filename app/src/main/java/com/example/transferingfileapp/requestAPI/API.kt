@@ -106,26 +106,26 @@ class API(private val context: Context) {
     }
 
     // function to get data
-    fun getData(code: Int, callback: (List<DataResponseClass>?) -> Unit) {
-        val call = apiServiceGetData.getData(code)
-
-        call.enqueue(object : Callback<DataResponseClass> {
-            override fun onResponse(call: Call<DataResponseClass>, response: Response<DataResponseClass>) {
-                // Handle response
-                if (response.isSuccessful) {
-                    val data = response.body()?.data
-                    // Panggil callback dengan data yang diperoleh
-                    callback(data)
-                } else {
-                    callback(null)
-                }
-            }
-
-            override fun onFailure(call: Call<DataResponseClass>, t: Throwable) {
-                callback(null)
-            }
-        })
-    }
+//    fun getData(code: Int, callback: (List<DataResponseClass>?) -> Unit) {
+//        val call = apiServiceGetData.getData(code)
+//
+//        call.enqueue(object : Callback<DataResponseClass> {
+//            override fun onResponse(call: Call<DataResponseClass>, response: Response<DataResponseClass>) {
+//                // Handle response
+//                if (response.isSuccessful) {
+//                    val data = response.body()?.data
+//                    // Panggil callback dengan data yang diperoleh
+//                    callback(data)
+//                } else {
+//                    callback(null)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<DataResponseClass>, t: Throwable) {
+//                callback(null)
+//            }
+//        })
+//    }
 
 }
 

@@ -54,10 +54,10 @@ class HomeActivity : ComponentActivity() {
             api.postData(selectedUri, 123, 123, nameFile)
         }
 
-        btnYourFile.setOnClickListener {
-            val intent = Intent(this, FileActivity::class.java)
-            startActivity(intent)
-        }
+//        btnYourFile.setOnClickListener {
+//            val intent = Intent(this, FileActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun queryFileName(uri: android.net.Uri): String? {
