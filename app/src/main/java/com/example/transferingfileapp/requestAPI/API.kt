@@ -1,5 +1,6 @@
 package com.example.transferingfileapp.requestAPI
 
+import android.app.ProgressDialog
 import com.example.transferingfileapp.MainActivity
 import com.example.transferingfileapp.model.ResponseClass
 import okhttp3.RequestBody
@@ -17,8 +18,10 @@ import com.example.transferingfileapp.HomeActivity
 import com.example.transferingfileapp.model.DataItem
 import com.example.transferingfileapp.model.DataResponseClass
 import com.example.transferingfileapp.utils.DialogUtils
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 
 import retrofit2.http.GET
@@ -37,6 +40,7 @@ class API(private val context: Context) {
     private val apiService = retrofit.create(ApiService::class.java)
     private val apiServicePost = retrofit.create(ApiServicePost::class.java)
     private val apiServiceGetData = retrofit.create(ApiServiceGetData::class.java)
+    private val apiServiceDownloadData = retrofit.create(ApiServiceDownloadData::class.java)
 
     // function to check user API
     fun checkUserAPI(pin: String) {
@@ -126,6 +130,27 @@ class API(private val context: Context) {
         })
     }
 
+    fun downloadFile(id: Int, callback: (ResponseBody?, MediaType?) -> Unit) {
+        val call = apiServiceDownloadData.downloadFile(id)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    val contentType = response.body()?.contentType()
+                    callback(response.body(), contentType)
+                } else {
+                    DialogUtils.invalidPINDialog(context)
+                    callback(null, null)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                DialogUtils.invalidPINDialog(context)
+                callback(null, null)
+            }
+        })
+    }
+
+
 }
 
 interface ApiService {
@@ -152,4 +177,11 @@ interface ApiServiceGetData {
     fun getData(
         @Path("id") id: Int
     ): Call<DataResponseClass>
+}
+
+interface ApiServiceDownloadData {
+    @GET("api/file-download/{id}")
+    fun downloadFile(
+        @Path("id") id: Int
+    ): Call<ResponseBody>
 }
