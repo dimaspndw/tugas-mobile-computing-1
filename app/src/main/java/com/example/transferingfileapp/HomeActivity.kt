@@ -1,5 +1,6 @@
 package com.example.transferingfileapp
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -44,14 +45,21 @@ class HomeActivity : ComponentActivity() {
         val nameFile = findViewById<EditText>(R.id.editTextFileName)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
         val btnYourFile = findViewById<Button>(R.id.yourFile)
+        val textCode = findViewById<TextView>(R.id.codeShare)
 
         btnChooseFile.setOnClickListener{
             chooseFileLauncher.launch("*/*")
         }
 
+        val sharedPreferences = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token", null)
+
         btnSubmit.setOnClickListener{
             val nameFile = nameFile.text.toString()
-            api.postData(selectedUri, 123, 123, nameFile)
+            val textCode = textCode.text.toString()
+            if (token != null) {
+                api.postData(selectedUri, token.toInt(), textCode.toInt(), nameFile)
+            }
         }
 
         btnYourFile.setOnClickListener {

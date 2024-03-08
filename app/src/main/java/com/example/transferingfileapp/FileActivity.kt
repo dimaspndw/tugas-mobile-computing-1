@@ -4,6 +4,7 @@ package com.example.transferingfileapp
 import CardAdapter
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,16 +28,28 @@ class FileActivity : ComponentActivity() {
     }
 
     private fun getDataFromApi() {
-        API(this).getData(123) { data ->
-            if (data != null) {
-                adapter = CardAdapter(data)
-                recyclerView.adapter = adapter
-            } else {
-                // Handle the case when data retrieval fails
-                DialogUtils.invalidPINDialog(this)
+        // get token disini
+        val sharedPreferences = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token", null)
+
+        if (token != null) {
+            // Panggil API dengan token yang diperoleh
+            API(this).getData(token.toInt()) { data ->
+                if (data != null) {
+                    adapter = CardAdapter(data){ itemId ->
+                        downloadFile(itemId)
+                    }
+                    recyclerView.adapter = adapter
+                } else {
+                    DialogUtils.invalidPINDialog(this)
+                }
             }
+        } else {
+            DialogUtils.invalidPINDialog(this)
         }
     }
 
-
+    private fun downloadFile(id: Int) {
+        Log.d("code", id.toString())
+    }
 }

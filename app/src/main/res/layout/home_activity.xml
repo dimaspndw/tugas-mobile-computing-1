@@ -25,6 +25,15 @@
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
 
+    <!-- Nama File -->
+    <EditText
+        android:id="@+id/codeShare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukan kode"
+        android:inputType="text"
+        android:layout_marginBottom="16dp"/>
+
     <!-- File yang dipilih -->
     <TextView
         android:id="@+id/namaFileTerpilih"
