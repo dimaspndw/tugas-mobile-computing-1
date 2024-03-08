@@ -5,8 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Tambahkan elemen-elemen UI yang diperlukan untuk setiap kartu -->
-
+    <!-- Elemen-elemen UI yang sudah ada -->
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
@@ -14,7 +13,26 @@
         android:text="Judul"
         android:textSize="18sp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="From"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <!-- Tambahkan elemen-elemen UI lainnya sesuai kebutuhan -->
+    <!-- Tombol Download -->
+    <Button
+        android:id="@+id/btnDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download" />
 
 </LinearLayout>

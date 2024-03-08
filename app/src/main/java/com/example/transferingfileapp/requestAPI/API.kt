@@ -14,13 +14,13 @@ import android.content.Context
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import com.example.transferingfileapp.HomeActivity
+import com.example.transferingfileapp.model.DataItem
 import com.example.transferingfileapp.model.DataResponseClass
 import com.example.transferingfileapp.utils.DialogUtils
-import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 
-
-import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -106,26 +106,25 @@ class API(private val context: Context) {
     }
 
     // function to get data
-//    fun getData(code: Int, callback: (List<DataResponseClass>?) -> Unit) {
-//        val call = apiServiceGetData.getData(code)
-//
-//        call.enqueue(object : Callback<DataResponseClass> {
-//            override fun onResponse(call: Call<DataResponseClass>, response: Response<DataResponseClass>) {
-//                // Handle response
-//                if (response.isSuccessful) {
-//                    val data = response.body()?.data
-//                    // Panggil callback dengan data yang diperoleh
-//                    callback(data)
-//                } else {
-//                    callback(null)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<DataResponseClass>, t: Throwable) {
-//                callback(null)
-//            }
-//        })
-//    }
+    fun getData(code: Int, callback: (List<DataItem>?) -> Unit) {
+        val call = apiServiceGetData.getData(code)
+        call.enqueue(object : Callback<DataResponseClass> {
+            override fun onResponse(call: Call<DataResponseClass>, response: Response<DataResponseClass>) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    callback(data)
+                } else {
+                    DialogUtils.invalidPINDialog(context)
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<DataResponseClass>, t: Throwable) {
+                DialogUtils.invalidPINDialog(context)
+                callback(null)
+            }
+        })
+    }
 
 }
 
@@ -149,7 +148,7 @@ interface ApiServicePost {
 }
 
 interface ApiServiceGetData {
-    @GET("api/file/{id}")
+    @GET("api/file-list/{id}")
     fun getData(
         @Path("id") id: Int
     ): Call<DataResponseClass>
