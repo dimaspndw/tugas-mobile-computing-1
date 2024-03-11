@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -43,7 +44,7 @@ class HomeActivity : ComponentActivity() {
         networkCheckHandler.startChecking()
 
         val btnChooseFile = findViewById<Button>(R.id.btnChooseFile)
-        val nameFile = findViewById<EditText>(R.id.editTextFileName)
+        val nameFile = findViewById<TextView>(R.id.namaFileTerpilih)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
         val btnYourFile = findViewById<Button>(R.id.yourFile)
         val textCode = findViewById<TextView>(R.id.codeShare)
@@ -58,6 +59,7 @@ class HomeActivity : ComponentActivity() {
         btnSubmit.setOnClickListener{
             val nameFile = nameFile.text.toString()
             val textCode = textCode.text.toString()
+            Log.d("uri file", selectedUri.toString())
             if (token != null) {
                 api.postData(selectedUri, token.toInt(), textCode.toInt(), nameFile)
             }

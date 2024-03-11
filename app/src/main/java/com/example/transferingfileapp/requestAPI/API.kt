@@ -81,7 +81,6 @@ class API(private val context: Context) {
         val file = DocumentFile.fromSingleUri(context, uri)
         val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
 
-        // Baca data dari InputStream dan berikan nilai default jika null
         val requestData = inputStream?.readBytes() ?: ByteArray(0)
 
         val requestFile = RequestBody.create(context.contentResolver.getType(uri)?.toMediaTypeOrNull(), requestData)
@@ -97,8 +96,10 @@ class API(private val context: Context) {
                 // Handle response
                 if (response.isSuccessful) {
                     val message = response.body()?.message
+                    Log.d("Response", "Success: $message")
                     DialogUtils.successPostData(context)
                 } else {
+                    Log.d("Response", "Error: ${response.code()} - ${response.message()}")
                     DialogUtils.invalidPINDialog(context)
                 }
             }
