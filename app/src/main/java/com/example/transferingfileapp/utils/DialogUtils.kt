@@ -1,5 +1,6 @@
 package com.example.transferingfileapp.utils
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import com.example.transferingfileapp.HomeActivity
@@ -44,5 +45,4 @@ object DialogUtils {
         val alertDialog = builder.create()
         alertDialog.show()
     }
-
 }
