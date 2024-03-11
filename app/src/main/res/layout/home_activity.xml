@@ -1,75 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="16dp">
+    tools:context=".MainActivity">
 
     <!-- Judul Form -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Form Pemilihan dan Submit"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- Nama File -->
-    <EditText
-        android:id="@+id/editTextFileName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nama File"
-        android:inputType="text"
-        android:layout_marginBottom="16dp"/>
+        android:layout_height="600dp"
+        android:layout_marginTop="60dp"
+        android:background="#E7F7C5"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <!-- Nama File -->
-    <EditText
-        android:id="@+id/codeShare"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Masukan kode"
-        android:inputType="text"
-        android:layout_marginBottom="16dp"/>
+        <!-- Form -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="370dp"
+            android:layout_height="360dp"
+            android:background="#E7F7C5"
+            app:cardCornerRadius="20dp"
 
-    <!-- File yang dipilih -->
-    <TextView
-        android:id="@+id/namaFileTerpilih"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
+            >
 
-    <!-- Tombol untuk Memilih File -->
-    <Button
-        android:id="@+id/btnChooseFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose File"
-        android:onClick="chooseFile"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <!-- Tombol Submit -->
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:onClick="submitForm"
-        android:layout_gravity="center_horizontal"/>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center_horizontal"
+                    android:src="@drawable/icon1" />
 
-    <!--  File anda  -->
-    <Button
-        android:id="@+id/yourFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="File anda"
-        android:onClick="goToYourFile"
-        android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Upload File"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/namaFileTerpilih"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text=""
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/codeShare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Insert Code"
+                    android:inputType="text"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/editTextFileName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="File Name"
+                    android:inputType="text"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btnSubmit"
+                        style="@android:style/Widget.Material.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="15dp"
+                        android:background="@drawable/button"
+                        android:onClick="submitForm"
+                        android:text="Submit"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnChooseFile"
+                        style="@android:style/Widget.Material.Button.Colored"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/button"
+                        android:onClick="chooseFile"
+                        android:text="Choose File"
+
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/yourFile"
+                        style="@android:style/Widget.Material.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/button"
+                        android:onClick="goToYourFile"
+                        android:text="File anda"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- Tombol Submit -->
+
+    </LinearLayout>
 
 </LinearLayout>
+
+

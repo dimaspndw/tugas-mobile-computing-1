@@ -1,38 +1,53 @@
 <!-- card_item.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/gradient"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="20dp">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="#E7F7C5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title       : "
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From      : "
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To           : "
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Tombol Download -->
+        <Button
+            android:id="@+id/btnDownload"
+            style="@android:style/Widget.Material.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:text="Download"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
     <!-- Elemen-elemen UI yang sudah ada -->
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Judul"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textFrom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="From"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textTo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="To"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
-    <!-- Tombol Download -->
-    <Button
-        android:id="@+id/btnDownload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Download" />
 
 </LinearLayout>

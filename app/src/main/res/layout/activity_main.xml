@@ -1,26 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
-    android:gravity="center">
+    tools:context=".MainActivity">
 
-    <!-- Form -->
-    <EditText
-        android:id="@+id/editTextPIN"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter 6-digit PIN"
-        android:inputType="numberPassword"
-        android:layout_gravity="center"/>
+        android:layout_height="600dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <!-- Tombol Submit -->
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:onClick="submitForm"
-        android:layout_gravity="center"/>
+        <!-- Form -->
 
-</LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="300dp"
+                android:layout_height="360dp"
+                android:background="#E7F7C5"
+                android:layout_marginTop="100dp"
+                app:cardCornerRadius="20dp"
+                >
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center_horizontal"
+                    android:src="@drawable/icon1" />
+
+                <TextView
+                    android:layout_below="@id/imageView2"
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="13dp"
+                    android:fontFamily="sans-serif"
+                    android:text="PIN"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    />
+
+                    <EditText
+                    android:layout_below="@id/textView"
+                    android:id="@+id/editTextPIN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Enter 6-digit PIN"
+                    android:inputType="numberPassword"
+                    android:textSize="20sp"
+                    />
+                <Button
+                    android:id="@+id/btnSubmit"
+                    style="@android:style/Widget.Material.Button.Colored"
+                    android:layout_width="160dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button"
+                    android:onClick="submitForm"
+                    android:text="Submit"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+
+
+        <!-- Tombol Submit -->
+
+         </LinearLayout>
+
+    </LinearLayout>
+
+
