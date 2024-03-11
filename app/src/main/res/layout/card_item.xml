@@ -1,17 +1,13 @@
 <!-- card_item.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/gradient"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="#E7F7C5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:layout_marginBottom="10dp">
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
@@ -48,6 +44,3 @@
             android:textColor="#FFFFFF" />
     </LinearLayout>
     <!-- Elemen-elemen UI yang sudah ada -->
-
-
-</LinearLayout>
