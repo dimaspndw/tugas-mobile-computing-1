@@ -1,5 +1,6 @@
 package com.example.transferingfileapp.requestAPI
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import com.example.transferingfileapp.MainActivity
 import com.example.transferingfileapp.model.ResponseClass
@@ -15,6 +16,7 @@ import android.content.Context
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import com.example.transferingfileapp.HomeActivity
+import com.example.transferingfileapp.R
 import com.example.transferingfileapp.model.DataItem
 import com.example.transferingfileapp.model.DataResponseClass
 import com.example.transferingfileapp.utils.DialogUtils
@@ -41,6 +43,7 @@ class API(private val context: Context) {
     private val apiServicePost = retrofit.create(ApiServicePost::class.java)
     private val apiServiceGetData = retrofit.create(ApiServiceGetData::class.java)
     private val apiServiceDownloadData = retrofit.create(ApiServiceDownloadData::class.java)
+    private var progressDialog: Dialog? = null
 
     // function to check user API
     fun checkUserAPI(pin: String) {
@@ -78,6 +81,7 @@ class API(private val context: Context) {
 
     // function to post data
     fun postData(uri: android.net.Uri, from: Int, to: Int, name: String) {
+        showLoading()
         val file = DocumentFile.fromSingleUri(context, uri)
         val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
 
@@ -97,14 +101,17 @@ class API(private val context: Context) {
                 if (response.isSuccessful) {
                     val message = response.body()?.message
                     Log.d("Response", "Success: $message")
+                    hideLoading()
                     DialogUtils.successPostData(context)
                 } else {
                     Log.d("Response", "Error: ${response.code()} - ${response.message()}")
+                    hideLoading()
                     DialogUtils.invalidPINDialog(context)
                 }
             }
 
             override fun onFailure(call: Call<ResponseClass>, t: Throwable) {
+                hideLoading()
                 DialogUtils.invalidPINDialog(context)
             }
         })
@@ -151,7 +158,16 @@ class API(private val context: Context) {
         })
     }
 
+    private fun showLoading() {
+        progressDialog = Dialog(context)
+        progressDialog?.setContentView(R.layout.layout_dialog)
+        progressDialog?.setCancelable(false)
+        progressDialog?.show()
+    }
 
+    private fun hideLoading() {
+        progressDialog?.dismiss()
+    }
 }
 
 interface ApiService {

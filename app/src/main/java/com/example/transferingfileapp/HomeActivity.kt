@@ -59,7 +59,6 @@ class HomeActivity : ComponentActivity() {
         btnSubmit.setOnClickListener{
             val nameFile = nameFile.text.toString()
             val textCode = textCode.text.toString()
-            Log.d("uri file", selectedUri.toString())
             if (token != null) {
                 api.postData(selectedUri, token.toInt(), textCode.toInt(), nameFile)
             }
