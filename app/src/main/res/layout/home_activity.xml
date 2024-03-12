@@ -114,7 +114,7 @@
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/button"
                         android:onClick="goToYourFile"
-                        android:text="My Files"
+                        android:text="My File"
                         android:textColor="@color/white" />
 
                 </LinearLayout>
