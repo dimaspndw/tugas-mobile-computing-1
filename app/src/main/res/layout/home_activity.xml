@@ -40,7 +40,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:gravity="center_horizontal"
-                    android:src="@drawable/icon1" />
+                    android:src="@drawable/icon2" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -114,7 +114,7 @@
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/button"
                         android:onClick="goToYourFile"
-                        android:text="File anda"
+                        android:text="My File"
                         android:textColor="@color/white" />
 
                 </LinearLayout>
