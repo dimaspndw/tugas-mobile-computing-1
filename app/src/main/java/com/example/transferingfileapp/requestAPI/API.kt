@@ -145,8 +145,9 @@ class API(private val context: Context) {
                 if (response.isSuccessful) {
                     val contentType = response.body()?.contentType()
                     callback(response.body(), contentType)
+                    DialogUtils.successDownloadData(context)
                 } else {
-                    DialogUtils.invalidPINDialog(context)
+                    DialogUtils.errorDownloadData(context)
                     callback(null, null)
                 }
             }

@@ -73,7 +73,6 @@ class FileActivity : ComponentActivity() {
                         saveFile(responseBody, fileName)
                     }
                 }
-                DialogUtils.successDownloadData(this@FileActivity)
             }
         })
     }

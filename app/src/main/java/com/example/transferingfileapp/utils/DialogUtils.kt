@@ -61,4 +61,16 @@ object DialogUtils {
         val alertDialog = builder.create()
         alertDialog.show()
     }
+
+    fun errorDownloadData(context: Context) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Gagal!!")
+            .setMessage("File tidak tersedia.")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
 }
