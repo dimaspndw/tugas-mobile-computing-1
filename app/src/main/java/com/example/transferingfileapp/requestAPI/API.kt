@@ -138,23 +138,24 @@ class API(private val context: Context) {
         })
     }
 
-    fun downloadFile(id: Int, callback: (ResponseBody?, MediaType?) -> Unit) {
+    fun downloadFile(id: Int, callback: (ResponseBody?, MediaType?, String?) -> Unit) {
         val call = apiServiceDownloadData.downloadFile(id)
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     val contentType = response.body()?.contentType()
-                    callback(response.body(), contentType)
+                    val fileName = response.headers().get("Content-Disposition")?.replace("attachment; filename=", "")
+                    callback(response.body(), contentType, fileName)
                     DialogUtils.successDownloadData(context)
                 } else {
                     DialogUtils.errorDownloadData(context)
-                    callback(null, null)
+                    callback(null, null, null)
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 DialogUtils.invalidPINDialog(context)
-                callback(null, null)
+                callback(null, null, null)
             }
         })
     }

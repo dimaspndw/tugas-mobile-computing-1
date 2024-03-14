@@ -62,19 +62,17 @@ class FileActivity : ComponentActivity() {
 
     private fun downloadFile(id: Int) {
         showLoading()
-        API(this).downloadFile(id, object : (ResponseBody?, MediaType?) -> Unit {
-            override fun invoke(responseBody: ResponseBody?, mediaType: MediaType?) {
-                Log.d("id", id.toString())
-                hideLoading()
-                if (responseBody != null) {
-                    if (mediaType != null) {
-                        val fileExtension = getExtensionFromMediaType(mediaType)
-                        val fileName = "test.${fileExtension}"
-                        saveFile(responseBody, fileName)
-                    }
+        API(this).downloadFile(id) { responseBody, mediaType, fileName ->
+            Log.d("id", id.toString())
+            hideLoading()
+            if (responseBody != null && fileName != null) {
+                if (mediaType != null) {
+                    val fileExtension = getExtensionFromMediaType(mediaType)
+                    val finalFileName = "$fileName.${fileExtension}"
+                    saveFile(responseBody, finalFileName)
                 }
             }
-        })
+        }
     }
 
     fun saveFile(responseBody: ResponseBody?, fileName: String) {
