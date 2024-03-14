@@ -20,6 +20,15 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("mobile_programming_1.jks")
+            storePassword = "123456"
+            keyAlias = "mobile-programming-1"
+            keyPassword = "123456"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
