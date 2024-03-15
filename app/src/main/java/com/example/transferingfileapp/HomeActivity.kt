@@ -29,7 +29,7 @@ class HomeActivity : ComponentActivity() {
             val fileName = queryFileName(uri)
             val textChooseFile = findViewById<TextView>(R.id.namaFileTerpilih)
 
-            textChooseFile.text = "Nama File: $fileName"
+            textChooseFile.text = "$fileName"
 
             selectedUri = uri
         }
