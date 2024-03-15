@@ -34,18 +34,20 @@ import retrofit2.http.Path
 import java.io.InputStream
 
 class API(private val context: Context) {
+    // menentukan base url dari API
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api-transfer-file.dimaspndw.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    // dengan memanfaatkan retrofit melakukan definisi
     private val apiService = retrofit.create(ApiService::class.java)
     private val apiServicePost = retrofit.create(ApiServicePost::class.java)
     private val apiServiceGetData = retrofit.create(ApiServiceGetData::class.java)
     private val apiServiceDownloadData = retrofit.create(ApiServiceDownloadData::class.java)
     private var progressDialog: Dialog? = null
 
-    // function to check user API
+    // function yang digunakan untuk checking user API
     fun checkUserAPI(pin: String) {
         val pinRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), pin)
 

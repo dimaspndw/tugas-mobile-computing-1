@@ -22,7 +22,7 @@ import java.io.IOException
 import java.io.InputStream
 
 class FileActivity : ComponentActivity() {
-
+    // inisialisasi variable yang dibutuhkan
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CardAdapter
     private var progressDialog: Dialog? = null
@@ -31,15 +31,18 @@ class FileActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.file_activity)
 
+        // RecyclerView merupakan bagian dari AndroidJetpack yang digunakan untuk menampilkan
+        // daftar data dengan scrolling yang lebih efisien
         recyclerView = findViewById(R.id.recyclerView)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
 
+        // memanggil data dari API
         getDataFromApi()
     }
 
     private fun getDataFromApi() {
-        // get token disini
+        // melakukan get token sama seperti penjelasan sebelumnya
         val sharedPreferences = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token", null)
 
@@ -47,9 +50,11 @@ class FileActivity : ComponentActivity() {
             // Panggil API dengan token yang diperoleh
             API(this).getData(token.toInt()) { data ->
                 if (data != null) {
+                    // memanggil cart adapter dengan membawa itemId untuk keperluan downloadFile
                     adapter = CardAdapter(data){ itemId ->
                         downloadFile(itemId)
                     }
+                    // memasukan ke dalam recyclerView
                     recyclerView.adapter = adapter
                 } else {
                     DialogUtils.invalidPINDialog(this)
