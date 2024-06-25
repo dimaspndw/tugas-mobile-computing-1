@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "323233765392",
+    "project_id": "sharing-file-8be61",
+    "storage_bucket": "sharing-file-8be61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323233765392:android:df03bff924456a7da59295",
+        "android_client_info": {
+          "package_name": "com.example.transferingfileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323233765392-pdgdfo6crdvib87bprbb7j4l54rihhk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.transferingfileapp",
+            "certificate_hash": "9831a0f151556f9b6ca77c3b4f308293bf29ac2d"
+          }
+        },
+        {
+          "client_id": "323233765392-quc4kjinqhso5afv1jpb01itl1oc3kfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANxELSZhYLbf4DCJDGKGA3QxJbCOCajfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323233765392-quc4kjinqhso5afv1jpb01itl1oc3kfm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
