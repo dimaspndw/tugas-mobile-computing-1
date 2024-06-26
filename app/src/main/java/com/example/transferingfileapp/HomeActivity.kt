@@ -10,18 +10,21 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.database.getStringOrNull
 import androidx.documentfile.provider.DocumentFile
 import com.example.transferingfileapp.handler.NetworkCheckHandler
 import com.example.transferingfileapp.requestAPI.API
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : ComponentActivity() {
     // inisialisai variable yang diperlukan untuk HomeActivity
     private lateinit var networkCheckHandler: NetworkCheckHandler
     private val api = API(this)
     private lateinit var selectedUri: Uri
+    lateinit var auth: FirebaseAuth
 
 
     // Dengan menggunakan GetContent maka akan membuka file picker default dari android
@@ -47,6 +50,7 @@ class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
+        auth = FirebaseAuth.getInstance()
 
         // Melakukan checking network
         networkCheckHandler = NetworkCheckHandler(this)
@@ -58,6 +62,37 @@ class HomeActivity : ComponentActivity() {
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
         val btnYourFile = findViewById<Button>(R.id.yourFile)
         val textCode = findViewById<TextView>(R.id.codeShare)
+        val btnUpdateAccount = findViewById<Button>(R.id.btnToUpdateAccount)
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
+        var code = ""
+
+        val user = auth.currentUser
+        val uid = user?.uid
+        // panggil api
+        if (uid != null) {
+            // Panggil API untuk mendapatkan data user
+            API(this).getDataUser(uid) { dataUser ->
+                dataUser?.let {
+                    Log.d("HomeActivity", "Data user: ${it.email}")
+                    // Lakukan sesuatu dengan data user, misalnya menampilkan email di TextView
+                    val tvUserEmail: TextView = findViewById(R.id.tvUserEmail)
+                    val tvUserPin: TextView = findViewById(R.id.tvUserPin)
+                    tvUserEmail.text = it.email
+                    tvUserPin.text = "Pin anda : " + it.code
+                    val editor = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE).edit()
+                    editor.putString("token", it.code)
+                    editor.apply()
+                    val sharedPreferences = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
+                    // mengambil token yang telah disimpan di dalam share preferences
+                    val token = sharedPreferences.getString("token", null)
+                    Log.d("Token dari storage API", token.toString())
+                } ?: run {
+                    Log.w("HomeActivity", "Data user null ${uid}")
+                    // Tangani kasus ketika data user null
+                    Toast.makeText(this, "Data user tidak ditemukan", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         // saat button choose file di klik maka akan memanggil properto chooseFileLauncher kemudian
         // akan melakukan launch file picker default dari android
@@ -70,12 +105,16 @@ class HomeActivity : ComponentActivity() {
         val sharedPreferences = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
         // mengambil token yang telah disimpan di dalam share preferences
         val token = sharedPreferences.getString("token", null)
-
+        Log.d("tokn", token.toString())
         // saat button submit diklik maka
         btnSubmit.setOnClickListener{
+            val sharedPreferences = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
+            // mengambil token yang telah disimpan di dalam share preferences
+            val token = sharedPreferences.getString("token", null)
             // mengambil nama file dan textCode {text code adalah code pin yang akan dituju}
             val nameFile = nameFile.text.toString()
             val textCode = textCode.text.toString()
+            Log.d("tokn click", token.toString())
             // jika token tidak null maka
             if (token != null) {
                 // melakukan post data dengan membawa parameter
@@ -88,6 +127,23 @@ class HomeActivity : ComponentActivity() {
         btnYourFile.setOnClickListener {
             // start intent ke dalam FileActivity
             val intent = Intent(this, FileActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnUpdateAccount.setOnClickListener {
+            val intent = Intent(this, UpdateAccountActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnLogout.setOnClickListener {
+            auth.signOut()
+
+            val sharedPreferences = getSharedPreferences("TokenPreference", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.remove("token")
+            editor.apply()
+
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

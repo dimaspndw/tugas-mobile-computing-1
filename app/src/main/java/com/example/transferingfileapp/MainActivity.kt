@@ -6,6 +6,7 @@ import android.widget.EditText
 import androidx.activity.ComponentActivity
 import com.example.transferingfileapp.handler.NetworkCheckHandler
 import com.example.transferingfileapp.requestAPI.API
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
     // inisialisasi variabel yang akan digunakan

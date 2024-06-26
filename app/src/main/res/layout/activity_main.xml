@@ -36,51 +36,51 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     >
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="50dp"
-                    android:gravity="center_horizontal"
-                    android:src="@drawable/icon1" />
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="50dp"
+                        android:gravity="center_horizontal"
+                        android:src="@drawable/icon1" />
 
-                <TextView
-                    android:layout_below="@id/imageView2"
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginBottom="13dp"
-                    android:fontFamily="sans-serif"
-                    android:text="PIN"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    />
+                    <TextView
+                        android:layout_below="@id/imageView2"
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="13dp"
+                        android:fontFamily="sans-serif"
+                        android:text="PIN"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        />
 
                     <EditText
-                    android:layout_below="@id/textView"
-                    android:id="@+id/editTextPIN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
-                    android:hint="Enter 6-digit PIN"
-                    android:inputType="numberPassword"
-                    android:textSize="20sp"
-                    />
-                <Button
-                    android:id="@+id/btnSubmit"
-                    style="@android:style/Widget.Material.Button.Colored"
-                    android:layout_width="160dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button"
-                    android:onClick="submitForm"
-                    android:text="Submit"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:typeface="normal"
-                    />
+                        android:layout_below="@id/textView"
+                        android:id="@+id/editTextPIN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:hint="Enter 6-digit PIN"
+                        android:inputType="numberPassword"
+                        android:textSize="20sp"
+                        />
+                    <Button
+                        android:id="@+id/btnSubmit"
+                        style="@android:style/Widget.Material.Button.Colored"
+                        android:layout_width="160dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button"
+                        android:onClick="submitForm"
+                        android:text="Submit"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:typeface="normal"
+                        />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -92,8 +92,7 @@
 
         <!-- Tombol Submit -->
 
-         </LinearLayout>
-
     </LinearLayout>
 
+</LinearLayout>
 

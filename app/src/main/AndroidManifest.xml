@@ -18,7 +18,13 @@
         android:theme="@style/Theme.TransferingFileApp"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".UpdateAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TransferingFileApp">
@@ -28,20 +34,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.TransferingFileApp" />
         <activity
             android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.TransferingFileApp">
-        </activity>
-
+            android:theme="@style/Theme.TransferingFileApp" />
         <activity
             android:name=".FileActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.TransferingFileApp">
-        </activity>
+            android:theme="@style/Theme.TransferingFileApp" />
     </application>
 
 </manifest>

@@ -19,6 +19,8 @@ import com.example.transferingfileapp.HomeActivity
 import com.example.transferingfileapp.R
 import com.example.transferingfileapp.model.DataItem
 import com.example.transferingfileapp.model.DataResponseClass
+import com.example.transferingfileapp.model.DataUser
+import com.example.transferingfileapp.model.DataUserResponseClass
 import com.example.transferingfileapp.utils.DialogUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -29,6 +31,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import java.io.InputStream
@@ -45,6 +48,9 @@ class API(private val context: Context) {
     private val apiServicePost = retrofit.create(ApiServicePost::class.java)
     private val apiServiceGetData = retrofit.create(ApiServiceGetData::class.java)
     private val apiServiceDownloadData = retrofit.create(ApiServiceDownloadData::class.java)
+    private val apiAcquisitionData = retrofit.create(ApiServiceAcquisitionUser::class.java)
+    private val apiGetDataUser = retrofit.create(ApiServiceGetDataUser::class.java)
+    private val apiUpdateDateUser = retrofit.create(ApiServiceUpdateDataUser::class.java)
     private var progressDialog: Dialog? = null
 
     // function yang digunakan untuk checking user API
@@ -162,6 +168,85 @@ class API(private val context: Context) {
         })
     }
 
+    fun acquisitionData(email: String, uid: String) {
+        showLoading()
+
+        val emailRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), email)
+        val uidRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), uid)
+
+        val call = apiAcquisitionData.acquisitionData(emailRequestBody, uidRequestBody)
+
+        call.enqueue(object : Callback<ResponseClass> {
+            override fun onResponse(call: Call<ResponseClass>, response: Response<ResponseClass>) {
+                // Handle response
+                if (response.isSuccessful) {
+                    val message = response.body()?.message
+                    Log.d("Response", "Success: $message")
+                    hideLoading()
+                    DialogUtils.successPostData(context)
+                } else {
+                    Log.d("Response", "Error: ${response.code()} - ${response.message()}")
+                    hideLoading()
+                    DialogUtils.invalidPINDialog(context)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseClass>, t: Throwable) {
+                hideLoading()
+            }
+        })
+    }
+
+    fun getDataUser(id: String, callback: (DataUser?) -> Unit) {
+        val call = apiGetDataUser.getDataUser(id)
+        call.enqueue(object : Callback<DataUserResponseClass> {
+            override fun onResponse(call: Call<DataUserResponseClass>, response: Response<DataUserResponseClass>) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.dataUser
+                    callback(data)
+                } else {
+                    DialogUtils.invalidPINDialog(context)
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<DataUserResponseClass>, t: Throwable) {
+                hideLoading()
+                callback(null)
+            }
+        })
+    }
+
+    fun updateDataUser(uid: String, email: String) {
+        showLoading()
+        val uidRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), uid)
+        val emailRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), email)
+
+        val call = apiUpdateDateUser.updateDataUser(uidRequestBody, emailRequestBody)
+
+        call.enqueue(object : Callback<ResponseClass> {
+            override fun onResponse(call: Call<ResponseClass>, response: Response<ResponseClass>) {
+                // Handle response
+                Log.d("Response apakah sukses", response.isSuccessful.toString())
+                if (response.isSuccessful) {
+                    val message = response.body()?.message
+                    Log.d("Response", "Success: $message")
+                    hideLoading()
+                    DialogUtils.successPostData(context)
+                } else {
+                    Log.d("Response", "Error: ${response.code()} - ${response.message()}")
+                    hideLoading()
+                    DialogUtils.invalidPINDialog(context)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseClass>, t: Throwable) {
+                hideLoading()
+            }
+        })
+    }
+
+
     private fun showLoading() {
         progressDialog = Dialog(context)
         progressDialog?.setContentView(R.layout.layout_dialog)
@@ -205,4 +290,29 @@ interface ApiServiceDownloadData {
     fun downloadFile(
         @Path("id") id: Int
     ): Call<ResponseBody>
+}
+
+interface ApiServiceAcquisitionUser {
+    @Multipart
+    @POST("api/user/acquisition")
+    fun acquisitionData(
+        @Part("email") email: RequestBody,
+        @Part("uid") uid: RequestBody
+    ): Call<ResponseClass>
+}
+
+interface ApiServiceGetDataUser {
+    @GET("api/user/get-data/{id}")
+    fun getDataUser(
+        @Path("id") id: String
+    ): Call<DataUserResponseClass>
+}
+
+interface ApiServiceUpdateDataUser {
+    @Multipart
+    @POST("api/user/update")
+    fun updateDataUser(
+        @Part("uid") uid: RequestBody,
+        @Part("email") email: RequestBody
+    ): Call<ResponseClass>
 }

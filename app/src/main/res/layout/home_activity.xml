@@ -3,17 +3,63 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Bagian atas untuk menampilkan email dan tombol update -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvUserEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email User"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvUserPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Pin"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btnToUpdateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Account"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button"
+            android:layout_gravity="end"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button"
+            android:layout_gravity="end"
+            android:padding="8dp" />
+    </LinearLayout>
+
     <!-- Judul Form -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="0dp"
         android:background="#E7F7C5"
         android:gravity="center"
         android:orientation="vertical">
@@ -23,9 +69,7 @@
             android:layout_width="370dp"
             android:layout_height="360dp"
             android:background="#E7F7C5"
-            app:cardCornerRadius="20dp"
-
-            >
+            app:cardCornerRadius="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,7 +146,6 @@
                         android:background="@drawable/button"
                         android:onClick="chooseFile"
                         android:text="Choose File"
-
                         android:textColor="@color/white" />
 
                     <Button
@@ -112,13 +155,13 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
                         android:background="@drawable/button"
                         android:onClick="goToYourFile"
                         android:text="My File"
                         android:textColor="@color/white" />
 
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -127,5 +170,3 @@
     </LinearLayout>
 
 </LinearLayout>
-
-
