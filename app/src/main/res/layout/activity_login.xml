@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
+    android:background="@drawable/gradient"
     android:padding="30dp"
     tools:context=".LoginActivity">
 
@@ -48,11 +48,16 @@
 
             <Button
                 android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/teal_700"
-                android:text="Login" />
+                android:layout_marginTop="15dp"
+                style="@android:style/Widget.Material.Button.Colored"
+                android:layout_width="160dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button"
+                android:text="login"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="normal"/>
 
             <TextView
                 android:layout_width="match_parent"
