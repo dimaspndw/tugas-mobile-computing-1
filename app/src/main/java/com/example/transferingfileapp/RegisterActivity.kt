@@ -55,7 +55,7 @@ class RegisterActivity : ComponentActivity() {
                 return@setOnClickListener
             }
 
-            if (password.length < 8) {
+            if (password.length <= 8) {
                 binding.edtPasswordRegister.error = "Panjang password minimal 8 karakter!"
                 binding.edtPasswordRegister.requestFocus()
                 return@setOnClickListener
